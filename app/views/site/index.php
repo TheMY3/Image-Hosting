@@ -1,15 +1,16 @@
 <?php
+use yii\widgets\ActiveForm;
+
 /* @var $this yii\web\View */
-$this->title = 'My Yii Application';
+$this->title = Yii::$app->name;
 ?>
 <div class="site-index">
-
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <h1>SAVEPIC.MOBI</h1>
+        <p class="lead">Загружайте и делитесь изображениями.</p>
+        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+        <?= $form->field($model, 'image')->fileInput(['id' => 'file-upload', 'accept' => 'image/*'])->label(false); ?>
+        <?php ActiveForm::end(); ?>
     </div>
 
     <div class="body-content">
@@ -49,3 +50,19 @@ $this->title = 'My Yii Application';
 
     </div>
 </div>
+
+<?php
+// Просто подключаем один файл:
+//$this->registerJsFile('@app/assets/js/script.js', self::POS_READY);
+//$this->registerCssFile('@app/vendor/katrik-v/bootstrap-fileinput/fileinput.css');
+
+$this->registerJs("
+$('#file-upload').fileinput({
+    browseClass: 'btn btn-lg btn-success',
+    showCaption: false,
+    showRemove: false,
+    showUpload: true,
+    allowedFileTypes: ['image'],
+    allowedFileExtensions: ['jpg', 'gif', 'png', 'bmp']
+});
+", \yii\web\View::POS_READY);

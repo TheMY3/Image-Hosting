@@ -15,7 +15,7 @@ class LoginForm extends Model
     public $rememberMe = true;
 
     private $_user = false;
-
+    public $file;
 
     /**
      * @return array the validation rules.

@@ -7,6 +7,7 @@ $webroot = dirname($basePath);
 
 $config = [
     'id' => 'app',
+    'name' => 'SAVEPIC.MOBI',
     'basePath' => $basePath,
     'bootstrap' => ['log'],
     'language' => 'en-US',
@@ -35,8 +36,10 @@ $config = [
             'useFileTransport' => true,
         ],
         'assetManager' => [
+//            'class' => 'yii\web\AssetManager',
+//            'appendTimestamp' => true,
             // uncomment the following line if you want to auto update your assets (unix hosting only)
-            //'linkAssets' => true,
+//            'linkAssets' => true,
             'bundles' => [
                 'yii\web\JqueryAsset' => [
                     'js' => [YII_DEBUG ? 'jquery.js' : 'jquery.min.js'],
