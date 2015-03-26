@@ -30,7 +30,7 @@ class Images extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'image', 'filename', 'image'], 'safe'],
+            [['name', 'image', 'filename', 'file'], 'safe'],
             [['image'], 'file', 'extensions' => 'jpg, gif, png'],
         ];
     }
@@ -43,7 +43,7 @@ class Images extends ActiveRecord
     {
         \Yii::$app->params['uploadPath'] = \Yii::$app->basePath . '/../uploads/';
         \Yii::$app->params['uploadUrl'] = \Yii::$app->urlManager->baseUrl . '/uploads/';
-        return isset($this->image) ? \Yii::$app->params['uploadPath'] . $this->image : null;
+        return isset($this->file) ? \Yii::$app->params['uploadPath'] . $this->file : null;
     }
 
     /**
@@ -52,8 +52,9 @@ class Images extends ActiveRecord
      */
     public function getImageUrl()
     {
+        \Yii::$app->params['uploadUrl'] = \Yii::$app->urlManager->baseUrl . '/uploads/';
         // return a default image placeholder if your source image is not found
-        $image = isset($this->image) ? $this->image : 'default_user.jpg';
+        $image = isset($this->file) ? $this->file : 'default_user.jpg';
         return \Yii::$app->params['uploadUrl'] . $image;
     }
 
@@ -81,7 +82,7 @@ class Images extends ActiveRecord
         $ext = end((explode(".", $image->name)));
 
         // generate a unique file name
-        $this->image = \Yii::$app->security->generateRandomString() . ".{$ext}";
+        $this->file = \Yii::$app->security->generateRandomString() . ".{$ext}";
 
         // the uploaded image instance
         return $image;

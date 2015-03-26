@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.41, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
 -- Host: 127.0.0.1    Database: savepic
 -- ------------------------------------------------------
--- Server version	5.5.41-0ubuntu0.14.04.1
+-- Server version	5.5.38-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,10 +25,10 @@ DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
+  `file` varchar(255) NOT NULL,
   `filename` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +37,7 @@ CREATE TABLE `images` (
 
 LOCK TABLES `images` WRITE;
 /*!40000 ALTER TABLE `images` DISABLE KEYS */;
+INSERT INTO `images` VALUES (1,'','','The_Swan_logo.jpg'),(2,'','','The_Swan_logo.jpg'),(3,'','','The_Swan_logo.jpg'),(4,'','','The_Swan_logo.jpg'),(5,'','','The_Swan_logo.jpg'),(6,'','','The_Swan_logo.jpg'),(7,'','','The_Swan_logo.jpg'),(8,'','ePGpOjQPfh8xAT30KyikF5wtCcLhmkmI.jpg','The_Swan_logo.jpg'),(9,'','9xishceAIelLGcvXQXE6i3BifoTiLPFH.jpg','The_Swan_logo.jpg'),(10,'','OkT3AwjtKMaCCRFvB4cwGMwI519gn12z.jpg','V7NgW6rres0.jpg'),(11,'','G8xvYQrccvdkGwlpLtapuT-9LTn6Qdgu.jpg','V7NgW6rres0.jpg');
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-25 18:01:42
+-- Dump completed on 2015-03-26  8:26:41

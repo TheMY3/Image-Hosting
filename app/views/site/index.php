@@ -6,7 +6,7 @@ $this->title = Yii::$app->name;
 ?>
 <div class="site-index">
     <div class="jumbotron">
-        <h1>SAVEPIC.MOBI</h1>
+        <h1><?= $this->title;?></h1>
         <p class="lead">Загружайте и делитесь изображениями.</p>
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
         <?= $form->field($model, 'image')->fileInput(['id' => 'file-upload', 'accept' => 'image/*'])->label(false); ?>
@@ -17,14 +17,16 @@ $this->title = Yii::$app->name;
 
         <div class="row">
             <div class="col-lg-4">
-                <h2>Heading</h2>
+                <h2>Возможности:</h2>
+                <p>
+                    <ul>
+                        <li>Хранение фотографий неограниченно долго.</li>
+                        <li>Получение ссылки для вставки загруженной фотографии в блог, форум, любой другой сайт в интернете или отправки по электронной почте.</li>
+                        <li>Автоматическое изменение необходимых параметров изображения при загрузке.</li>
+                        <li>Загрузка до 10 изображений (до 5 МБ каждое) за один раз.</li>
+                    </ul>
+                </p>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
             </div>
             <div class="col-lg-4">
                 <h2>Heading</h2>

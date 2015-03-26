@@ -7,7 +7,7 @@ $webroot = dirname($basePath);
 
 $config = [
     'id' => 'app',
-    'name' => 'SAVEPIC.MOBI',
+    'name' => 'WAPICS.RU',
     'basePath' => $basePath,
     'bootstrap' => ['log'],
     'language' => 'en-US',
@@ -27,6 +27,25 @@ $config = [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
+        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'enableStrictParsing' => true,
+            'rules' => [
+                'image/<link:[\w_-]+>' => 'site/image',
+                '<action:category|tag>/<name:[\w_-]+>' => 'site/<action>',
+
+                'rss.xml'=>'site/rss',
+
+                '/' => 'site/index',
+                '/panel/' => 'panel/default/index',
+                '/panel/<controller:\w+>/<action:\w+>' => 'panel/<controller>/<action>',
+                '/panel/<controller:\w+>' => '/panel/<controller>/index',
+                '<action:(categories|login|logout|contacts|about|subscribe)>' => 'site/<action>',
+                '<controller:\w+>' => '<controller>/index',
+                '<controller:\w+>/<action:\w+>' => '/<controller>/<action>',
+            ],
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

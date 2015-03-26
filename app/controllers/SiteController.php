@@ -53,14 +53,13 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             // process uploaded image file instance
             $image = $model->uploadImage();
-
             if ($model->save()) {
                 // upload only if valid uploaded file instance found
                 if ($image !== false) {
                     $path = $model->getImageFile();
                     $image->saveAs($path);
                 }
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['image', 'link' => PseudoCrypt::hash($model->id, 6)]);
             } else {
                 // error in saving model
             }
@@ -89,7 +88,7 @@ class SiteController extends Controller
                     $path = $model->getImageFile();
                     $image->saveAs($path);
                 }
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['image', 'link' => $model->id]);
             } else {
                 // error in saving model
             }
@@ -128,7 +127,7 @@ class SiteController extends Controller
                     $path = $model->getImageFile();
                     $image->saveAs($path);
                 }
-                return $this->redirect(['view', 'id' => $model->_id]);
+                return $this->redirect(['image', 'link' => $model->_id]);
             } else {
                 // error in saving model
             }
@@ -138,34 +137,11 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionView($id)
+    public function actionImage($link)
     {
+        $id = PseudoCrypt::unhash($link);
         $model = $this->findModel($id);
-        $oldFile = $model->getImageFile();
-        $oldImage = $model->image;
-        $oldFileName = $model->filename;
 
-        if ($model->load(Yii::$app->request->post())) {
-            // process uploaded image file instance
-            $image = $model->uploadImage();
-
-            // revert back if no valid file instance uploaded
-            if ($image === false) {
-                $model->image = $oldImage;
-                $model->filename = $oldFileName;
-            }
-
-            if ($model->save()) {
-                // upload only if valid uploaded file instance found
-                if ($image !== false && unlink($oldFile)) { // delete old and overwrite
-                    $path = $model->getImageFile();
-                    $image->saveAs($path);
-                }
-                return $this->redirect(['view', 'id' => $model->_id]);
-            } else {
-                // error in saving model
-            }
-        }
         return $this->render('view', [
             'model' => $model,
         ]);
