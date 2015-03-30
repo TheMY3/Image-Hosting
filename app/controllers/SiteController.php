@@ -59,7 +59,7 @@ class SiteController extends Controller
                     $path = $model->getImageFile();
                     $image->saveAs($path);
                 }
-                return $this->redirect(['image', 'link' => PseudoCrypt::hash($model->id, 6)]);
+                return $this->redirect(['share', 'link' => PseudoCrypt::hash($model->id, 6)]);
             } else {
                 // error in saving model
             }
@@ -127,13 +127,24 @@ class SiteController extends Controller
                     $path = $model->getImageFile();
                     $image->saveAs($path);
                 }
-                return $this->redirect(['image', 'link' => $model->_id]);
+                return $this->redirect(['image', 'link' => $model->id]);
             } else {
                 // error in saving model
             }
         }
         return $this->render('update', [
             'model' => $model,
+        ]);
+    }
+
+    public function actionShare($link)
+    {
+        $id = PseudoCrypt::unhash($link);
+        $model = $this->findModel($id);
+
+        return $this->render('share', [
+            'model' => $model,
+            'link' => $link
         ]);
     }
 

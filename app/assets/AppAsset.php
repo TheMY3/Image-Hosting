@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/fileinput.js',
         'js/fileinput_locale_ru.js',
+        'js/share42/share42.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

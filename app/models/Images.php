@@ -41,8 +41,6 @@ class Images extends ActiveRecord
      */
     public function getImageFile()
     {
-        \Yii::$app->params['uploadPath'] = \Yii::$app->basePath . '/../uploads/';
-        \Yii::$app->params['uploadUrl'] = \Yii::$app->urlManager->baseUrl . '/uploads/';
         return isset($this->file) ? \Yii::$app->params['uploadPath'] . $this->file : null;
     }
 
@@ -52,7 +50,6 @@ class Images extends ActiveRecord
      */
     public function getImageUrl()
     {
-        \Yii::$app->params['uploadUrl'] = \Yii::$app->urlManager->baseUrl . '/uploads/';
         // return a default image placeholder if your source image is not found
         $image = isset($this->file) ? $this->file : 'default_user.jpg';
         return \Yii::$app->params['uploadUrl'] . $image;
@@ -65,8 +62,6 @@ class Images extends ActiveRecord
      */
     public function uploadImage()
     {
-        \Yii::$app->params['uploadPath'] = \Yii::$app->basePath . '/../uploads/';
-        \Yii::$app->params['uploadUrl'] = \Yii::$app->urlManager->baseUrl . '/uploads/';
     // get the uploaded file instance. for multiple file uploads
     // the following data will return an array (you may need to use
     // getInstances method)

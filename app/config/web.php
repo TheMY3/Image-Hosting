@@ -1,9 +1,8 @@
 <?php
-
-$params = require(__DIR__ . '/params.php');
-
 $basePath =  dirname(__DIR__);
 $webroot = dirname($basePath);
+
+$params = require(__DIR__ . '/params.php');
 
 $config = [
     'id' => 'app',
@@ -33,8 +32,7 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => true,
             'rules' => [
-                'image/<link:[\w_-]+>' => 'site/image',
-                '<action:category|tag>/<name:[\w_-]+>' => 'site/<action>',
+                '<action:image|share>/<link:[\w_-]+>' => 'site/<action>',
 
                 'rss.xml'=>'site/rss',
 
