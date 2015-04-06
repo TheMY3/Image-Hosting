@@ -98,3 +98,110 @@ a.desc:after {
 .share_block .share_content {
     display: inline-block;
 }
+
+.mb_20px {
+    margin-bottom: 20px;
+}
+
+.share-label {
+    text-align: center !important;
+    margin-bottom: 12px !important;
+}
+.share-title i {
+    font-size: 18px;
+}
+.share-title_text {
+    display: inline-block;
+}
+.share-title_descr {
+    float: right;
+    font-size: 63%;
+}
+
+/**
+* IMAGES VIEW
+**/
+.image-view_block .image-view_image {
+    text-align: center;
+}
+.image-view_block .image-view_info I {
+    font-size: 24px;
+}
+.image-view_info .view-count {
+    display: inline-block;
+    font-size: 24px;
+    margin-left: 15px;
+}
+.image-view_block .like-link {
+    color: #000000;
+    font-size: 24px;
+}
+.image-view_block .like-link {
+    color: #000000;
+    font-size: 24px;
+
+}.image-view_block .share-link {
+    color: #000000;
+    font-size: 24px;
+     margin-left: 15px;
+}
+.image-view_block .like-link.active,
+.image-view_block .share-link.active {
+    color: #3c763d !important;
+}
+.image-view_block .like-link:hover,
+.image-view_block .share-link:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+.image-view_block .image-view_share {
+    display: none;
+}
+/**
+* IMAGES GALLERY
+**/
+.gallery-block .gallery-list {
+    list-style: none;
+    text-align: center;
+}
+.gallery-block .gallery-list li {
+    display: inline-block;
+}
+.gallery-block .gallery-list li .image-info {
+    text-align: center;
+}
+.gallery-block .gallery-list li {
+    margin: 10px;
+}
+.owl-wrapper-outer {
+    text-align: center;
+}
+@media (max-width: 539px) {
+    .gallery-block .gallery-list li {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        /*border-bottom: 1px solid #eee;*/
+    }
+    .gallery-block .gallery-list li {
+        display: block;
+    }
+    .gallery-block .gallery-list li {
+        display: block;
+        text-align: center;
+    }
+}
+@media (max-width: 767px) {
+    .copy-button {
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+    .share-title_text {
+        display: block;
+        text-align: center;
+    }
+    .share-title_descr {
+        display: block;
+        text-align: center;
+        float: none;
+    }
+}

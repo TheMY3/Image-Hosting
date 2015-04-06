@@ -7,6 +7,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\Images;
 use app\components\PseudoCrypt;
+use yii\web\Response;
+use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
@@ -50,6 +52,8 @@ class SiteController extends Controller
     {
         $model = new Images;
 
+        $slides = Images::find()->orderBy('id DESC')->limit(5)->all();
+
         if ($model->load(Yii::$app->request->post())) {
             // process uploaded image file instance
             $image = $model->uploadImage();
@@ -66,9 +70,23 @@ class SiteController extends Controller
         }
         return $this->render('index', [
             'model' => $model,
+            'slides' => $slides
         ]);
     }
 
+    public function actionGallery() {
+        $data = new ActiveDataProvider([
+            'query' => Images::find(),
+            'pagination' => [
+                'pageSize' => 9,
+                'pageSizeParam' => false
+            ],
+        ]);
+
+        return $this->render('gallery', [
+            'data' => $data,
+        ]);
+    }
     /**
      * Creates a new Images model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -153,9 +171,52 @@ class SiteController extends Controller
         $id = PseudoCrypt::unhash($link);
         $model = $this->findModel($id);
 
+        if (!isset(Yii::$app->request->cookies['image_view_'.$link])) {
+            $model->updateCounters(['views' => 1]);
+            Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                'name' => 'image_view_'.$link,
+                'value' => $link,
+                'expire' => time() + 60 * 60 * 24
+            ]));
+        }
+
         return $this->render('view', [
             'model' => $model,
+            'link' => $link
         ]);
+    }
+
+    public function actionLike($link)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $id = PseudoCrypt::unhash($link);
+        $model = $this->findModel($id);
+
+        if (!isset(Yii::$app->request->cookies['image_like_'.$link])) {
+            $model->updateCounters(['likes' => 1]);
+            $likes = $model->likes++;
+            Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                'name' => 'image_like_'.$link,
+                'value' => $link,
+                'expire' => time() + 60 * 60 * 24
+            ]));
+            $result = [
+                'result' => 'success',
+                'action' => 'like',
+                'likes' => $likes
+            ];
+        }
+        else {
+            Yii::$app->response->cookies->remove('image_like_'.$link);
+            $model->updateCounters(['likes' => '-1']);
+            $likes = $model->likes--;
+            $result = [
+                'result' => 'success',
+                'action' => 'dislike',
+                'likes' => $likes
+            ];
+        }
+        return $result;
     }
 
     /**

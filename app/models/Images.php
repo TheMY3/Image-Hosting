@@ -30,9 +30,21 @@ class Images extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'image', 'filename', 'file'], 'safe'],
+            [['name', 'image', 'filename', 'file', 'created'], 'safe'],
+            [['likes', 'views'], 'integer'],
             [['image'], 'file', 'extensions' => 'jpg, gif, png'],
         ];
+    }
+
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->created = time();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

@@ -20,11 +20,15 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/fileinput.css',
+        'css/owl.carousel.css',
+        'css/font-awesome.min.css',
     ];
     public $js = [
         'js/fileinput.js',
         'js/fileinput_locale_ru.js',
         'js/share42/share42.js',
+        'js/owl.carousel.min.js',
+        'js/notify.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

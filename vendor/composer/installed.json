@@ -1040,17 +1040,17 @@
         "source": {
             "type": "git",
             "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-            "reference": "b75eeb60b6dc80a6b4951ad73e846a61ce092b09"
+            "reference": "2c6dc892c9e54a617b2c32e09a1a4a7f508d72be"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/b75eeb60b6dc80a6b4951ad73e846a61ce092b09",
-            "reference": "b75eeb60b6dc80a6b4951ad73e846a61ce092b09",
+            "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/2c6dc892c9e54a617b2c32e09a1a4a7f508d72be",
+            "reference": "2c6dc892c9e54a617b2c32e09a1a4a7f508d72be",
             "shasum": ""
         },
-        "time": "2015-03-23 16:48:52",
+        "time": "2015-04-02 16:50:00",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-4": {
                 "kartik\\plugins\\fileinput\\": ""

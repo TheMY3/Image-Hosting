@@ -2,7 +2,6 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 /* @var $this \yii\web\View */
@@ -35,7 +34,7 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-                    ['label' => 'Галерея', 'url' => ['/site/contact']],
+                    ['label' => 'Галерея', 'url' => ['/site/gallery']],
                     ['label' => 'Информация', 'url' => ['/site/contact']],
                     ['label' => 'Обратная связь', 'url' => ['/site/contact']],
                     Yii::$app->user->isGuest ?
@@ -49,9 +48,6 @@ AppAsset::register($this);
         ?>
 
         <div class="container">
-            <?= Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?>
             <?= $content ?>
         </div>
     </div>

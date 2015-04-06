@@ -1,5 +1,8 @@
 <?php
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
+use yii\helpers\Html;
+use app\components\PseudoCrypt;
 
 /* @var $this yii\web\View */
 $this->title = Yii::$app->name;
@@ -14,42 +17,38 @@ $this->title = Yii::$app->name;
     </div>
 
     <div class="body-content">
-
         <div class="row">
             <div class="col-lg-4">
-                <h2>Возможности:</h2>
+                <h2>Преимущества:</h2>
                 <p>
                     <ul>
-                        <li>Хранение фотографий неограниченно долго.</li>
+                        <li>Не требует регистрации</li>
+                        <li>Хранение фотографий неограниченно долго</li>
                         <li>Получение ссылки для вставки загруженной фотографии в блог, форум, любой другой сайт в интернете или отправки по электронной почте.</li>
-                        <li>Автоматическое изменение необходимых параметров изображения при загрузке.</li>
-                        <li>Загрузка до 10 изображений (до 5 МБ каждое) за один раз.</li>
+                        <li>Максимальный объем загружаемого файла до 5Мб</li>
+                        <li>Сервис полностью бесплатен</li>
                     </ul>
                 </p>
-
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+            <div class="col-lg-8">
+                <h2 class="text-center">Добавлены недавно:</h2>
+                <div id="slides-block">
+                    <?php foreach($slides as $slide) : ?>
+                        <div class="item">
+                            <a href="<?= Url::toRoute(['image', 'link' => PseudoCrypt::hash($slide->id, 6)]);?>">
+                                <?= Html::img($slide->getImageUrl(), [
+                                    'class' => 'img-rounded',
+                                    'alt' => $slide->name,
+                                    'title' => $slide->name,
+                                    'width' => 180,
+                                    'height' => 180,
+                                ]); ?>
+                            </a>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -59,6 +58,16 @@ $this->title = Yii::$app->name;
 //$this->registerCssFile('@app/vendor/katrik-v/bootstrap-fileinput/fileinput.css');
 
 $this->registerJs("
+$('#slides-block').owlCarousel({
+      autoPlay: 3000, //Set AutoPlay to 3 seconds
+      items : 3,
+      stopOnHover: true,
+      loop: true,
+      lazyLoad : true,
+      itemsDesktop : [1199,3],
+      itemsDesktopSmall : [979,3]
+  });
+
 $('#file-upload').fileinput({
     browseClass: 'btn btn-lg btn-success',
     showCaption: false,
