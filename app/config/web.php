@@ -21,7 +21,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\Users',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -32,25 +32,47 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => true,
             'rules' => [
-                '<action:image|share>/<link:[\w_-]+>' => 'site/<action>',
-
-                'rss.xml'=>'site/rss',
-
                 '/' => 'site/index',
-                '/panel/' => 'panel/default/index',
-                '/panel/<controller:\w+>/<action:\w+>' => 'panel/<controller>/<action>',
-                '/panel/<controller:\w+>' => '/panel/<controller>/index',
-                '<action:(categories|login|logout|contacts|about|subscribe)>' => 'site/<action>',
+                '<action:image|share|image-edit|image-delete>/<link:[\w_-]+>' => 'site/<action>',
+                '<action:(login|registration|logout|contacts|information|gallery|my-images)>' => 'site/<action>',
                 '<controller:\w+>' => '<controller>/index',
                 '<controller:\w+>/<action:\w+>' => '/<controller>/<action>',
             ],
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.timeweb.ru',
+                'username' => 'notify@wapobzor.ru',
+                'password' => 'tdFpliI9KDTyvDFBrmmg7e7Vc',
+                'port' => '25',
+                'encryption' => 'tls',
+            ],
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
+        ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'clientId' => '369294909932813',
+                    'clientSecret' => '1ed2d20b1b9f6e02a1c70dd17fe8237e',
+                ],
+                'twitter' => [
+                    'class' => 'yii\authclient\clients\Twitter',
+                    'consumerKey' => 'tGuIseMprB467DHSAcrNswJ2C',
+                    'consumerSecret' => 'uRkW69k4lLOiROMKSP9e3I7eBZaCvn7m7By2nWZiNTBQ2zfJQV',
+                ],
+                'vkontakte' => [
+                    'class' => 'yii\authclient\clients\VKontakte',
+                    'clientId' => '4870015',
+                    'clientSecret' => 'rzZeGB0Uo4wVka1p8UWu',
+                ],
+            ],
         ],
         'assetManager' => [
 //            'class' => 'yii\web\AssetManager',

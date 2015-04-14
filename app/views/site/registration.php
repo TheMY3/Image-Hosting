@@ -4,15 +4,15 @@ use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model app\models\LoginForm */
+/* @var $model app\models\RegistrationForm */
 
-$this->title = 'Login';
+$this->title = 'Registration';
 ?>
 <div class="modal-dialog">
     <div class="modal-content">
         <?php
         $form = ActiveForm::begin([
-            'id' => 'login-form',
+            'id' => 'registration-form',
             'options' => ['class' => 'form-horizontal'],
             'fieldConfig' => [
                 'template' => "{label}\n<div class=\"col-xs-9\">{input}{error}</div>",
@@ -25,9 +25,13 @@ $this->title = 'Login';
             <h4 class="modal-title"><?= Html::encode($this->title) ?></h4>
         </div>
         <div class="modal-body">
-            <?= $form->field($model, 'username') ?>
+            <?= $form->field($model, 'username', ['enableAjaxValidation' => true]) ?>
 
             <?= $form->field($model, 'password')->passwordInput() ?>
+
+            <?= $form->field($model, 'confirm_password')->passwordInput() ?>
+
+            <?= $form->field($model, 'email', ['enableAjaxValidation' => true])->textInput() ?>
             <div class="modal-text-divider">
                 или:
             </div>
@@ -39,11 +43,11 @@ $this->title = 'Login';
         <div class="modal-footer">
             <div class="form-group">
                 <div class="col-xs-4">
-                    <?= Html::a('Create new account', ['registration'], ['class' => 'pull-left modalWindow btn btn-primary']);?>
+                    <?= Html::a('Login', ['login'], ['class' => 'pull-left modalWindow btn btn-primary']);?>
                 </div>
                 <div class="col-xs-8">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <?= Html::submitButton('Войти', ['class' => 'btn btn-primary']) ?>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <?= Html::submitButton('Registration', ['class' => 'btn btn-primary']) ?>
                 </div>
             </div>
         </div>
@@ -60,6 +64,7 @@ jQuery('#login-form').on('beforeSubmit', function(){
         form.serialize()
     )
     .done(function(result) {
+        console.log(result);
         form.parent().replaceWith(result);
     })
     .fail(function() {

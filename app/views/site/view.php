@@ -1,7 +1,6 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
-
 /* @var $this \yii\web\View */
 /* @var $model \app\models\Images */
 ?>
@@ -16,9 +15,12 @@ use yii\helpers\Url;
         <hr>
         <div class="image-view_info">
             <div class="pull-left">
-                <i class="fa fa-calendar"></i> <?= date('H:i d.m.y', $model->created); ?>
+                <div class="user-block">
+                    <i class="fa fa-user"></i> Добавил: <?= $model->id_user ? $model->user->username  : 'Гость'; ?>
+                </div>
             </div>
             <div class="pull-right">
+                <div class="date-block"><i class="fa fa-calendar"></i> <?= date('d.m.y', $model->created); ?></div>
                 <a class="like-link<?= isset(Yii::$app->request->cookies['image_like_'.$link]) ? ' active' : '' ?>"><i class="fa fa-thumbs-up"></i> <span><?= $model->likes; ?></span></a>
                 <div class="view-count"><i class="fa fa-eye"></i> <?= $model->views; ?></div>
                 <a class="share-link" data-toggle="tooltip" data-placement="top" title="Share image"><i class="fa fa-share"></i></a>

@@ -24,6 +24,7 @@ class AppAsset extends AssetBundle
         'css/font-awesome.min.css',
     ];
     public $js = [
+        'js/main.js',
         'js/fileinput.js',
         'js/fileinput_locale_ru.js',
         'js/share42/share42.js',

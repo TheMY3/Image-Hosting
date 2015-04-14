@@ -132,15 +132,20 @@ a.desc:after {
     font-size: 24px;
     margin-left: 15px;
 }
-.image-view_block .like-link {
-    color: #000000;
+.image-view_info .user-block {
+    display: inline-block;
+    font-size: 24px;
+}
+.image-view_info .date-block {
+    display: inline-block;
     font-size: 24px;
 }
 .image-view_block .like-link {
     color: #000000;
     font-size: 24px;
-
-}.image-view_block .share-link {
+    margin-left: 15px;
+}
+.image-view_block .share-link {
     color: #000000;
     font-size: 24px;
      margin-left: 15px;
@@ -157,6 +162,10 @@ a.desc:after {
 .image-view_block .image-view_share {
     display: none;
 }
+/**
+* IMAGES EDIT
+**/
+
 /**
 * IMAGES GALLERY
 **/
@@ -176,6 +185,30 @@ a.desc:after {
 .owl-wrapper-outer {
     text-align: center;
 }
+
+.auth-clients {
+    text-align: center;
+    padding: 0;
+}
+.auth-client {
+    float: none !important;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0 10px 0 10px !important;
+    padding: 0px 10px 0px 10px;
+}
+
+.modal-text-divider {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
 @media (max-width: 539px) {
     .gallery-block .gallery-list li {
         margin-top: 10px;

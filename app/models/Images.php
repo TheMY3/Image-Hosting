@@ -30,8 +30,9 @@ class Images extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'image', 'filename', 'file', 'created'], 'safe'],
+            [['image', 'filename', 'file', 'created', 'id_user'], 'safe'],
             [['likes', 'views'], 'integer'],
+            [['name', 'description'], 'string'],
             [['image'], 'file', 'extensions' => 'jpg, gif, png'],
         ];
     }
@@ -40,6 +41,9 @@ class Images extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+            if (!\Yii::$app->user->isGuest) {
+                $this->id_user = \Yii::$app->user->id;
+            }
             $this->created = time();
             return true;
         } else {
@@ -119,5 +123,13 @@ class Images extends ActiveRecord
         $this->filename = null;
 
         return true;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(Users::className(), ['id_user' => 'id_user']);
     }
 }

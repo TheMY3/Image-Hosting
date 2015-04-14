@@ -6,16 +6,17 @@ use Yii;
 use yii\base\Model;
 
 /**
- * LoginForm is the model behind the login form.
+ * RegistrationForm is the model behind the registration form.
  */
-class LoginForm extends Model
+class RegistrationForm extends Model
 {
     public $username;
     public $password;
+    public $email;
+    public $confirm_password;
     public $rememberMe = true;
 
     private $_user = false;
-
 
     /**
      * @return array the validation rules.
@@ -24,11 +25,12 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            [['username', 'password', 'confirm_password'], 'required'],
+            ['username', 'unique', 'targetClass' => 'app\models\Users', 'targetAttribute' => 'username'],
+            ['email', 'email'],
+            ['email', 'unique', 'targetClass' => 'app\models\Users', 'targetAttribute' => 'email'],
+            ['password', 'string', 'length' => [4, 24]],
+            ['confirm_password', 'compare', 'compareAttribute' => 'password'],
         ];
     }
 
@@ -39,24 +41,8 @@ class LoginForm extends Model
         return [
             'username' => Yii::t('app', 'Логин'),
             'password' => Yii::t('app', 'Пароль'),
+            'confirm_password' => Yii::t('app', 'Повторите пароль'),
         ];
-    }
-    
-    /**
-     * Validates the password.
-     * This method serves as the inline validation for password.
-     *
-     * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
-     */
-    public function validatePassword($attribute, $params)
-    {
-        if (!$this->hasErrors()) {
-            $user = $this->getUser();
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
-            }
-        }
     }
 
     /**
