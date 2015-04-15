@@ -64,7 +64,13 @@ class SiteController extends Controller
         Image::text('@webroot/uploads/1iNp9jHStmJfl2Gw6voll9aS-vnCQZAd.jpg', 'Русский текст', '@app/media/fonts/arial.ttf')
             ->save(Yii::getAlias('@webroot/test.jpg'), ['quality' => 80]);
 
-//        $image = Image::getImagine();
+        $image = Image::getImagine();
+        $uploadImage = $image->open(Yii::getAlias('@webroot/uploads/1iNp9jHStmJfl2Gw6voll9aS-vnCQZAd.jpg'));
+        $watermark = $image->open(Yii::getAlias('@app/media/img/watermark.png'));
+        $size = $uploadImage->getSize();
+        $wSize = $watermark->getSize();
+        $bottomRight = [$size->getWidth() - $wSize->getWidth(), $size->getHeight() - $wSize->getHeight()];
+        $image->watermark('@webroot/uploads/1iNp9jHStmJfl2Gw6voll9aS-vnCQZAd.jpg', '@app/media/img/watermark.png', $bottomRight)->save(Yii::getAlias('@runtime/thumb-test-photo.jpg'), ['quality' => 80]);
 //        $newImage = $image->open(Yii::getAlias('@webroot/uploads/1iNp9jHStmJfl2Gw6voll9aS-vnCQZAd.jpg'));
 //
 //        $newImage->effects()->grayscale();
