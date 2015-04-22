@@ -41,14 +41,6 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.timeweb.ru',
-                'username' => 'notify@wapobzor.ru',
-                'password' => 'tdFpliI9KDTyvDFBrmmg7e7Vc',
-                'port' => '25',
-                'encryption' => 'tls',
-            ],
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
@@ -59,18 +51,18 @@ $config = [
             'clients' => [
                 'facebook' => [
                     'class' => 'yii\authclient\clients\Facebook',
-                    'clientId' => '369294909932813',
-                    'clientSecret' => '1ed2d20b1b9f6e02a1c70dd17fe8237e',
+                    'clientId' => '',
+                    'clientSecret' => '',
                 ],
                 'twitter' => [
                     'class' => 'yii\authclient\clients\Twitter',
-                    'consumerKey' => 'tGuIseMprB467DHSAcrNswJ2C',
-                    'consumerSecret' => 'uRkW69k4lLOiROMKSP9e3I7eBZaCvn7m7By2nWZiNTBQ2zfJQV',
+                    'consumerKey' => '',
+                    'consumerSecret' => '',
                 ],
                 'vkontakte' => [
                     'class' => 'yii\authclient\clients\VKontakte',
-                    'clientId' => '4870015',
-                    'clientSecret' => 'rzZeGB0Uo4wVka1p8UWu',
+                    'clientId' => '',
+                    'clientSecret' => '',
                 ],
             ],
         ],
