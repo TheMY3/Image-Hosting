@@ -6,6 +6,12 @@ use yii\helpers\Url;
 $this->title = Yii::$app->name.' - Просмотр изображения';
 ?>
     <div class="image-view_block">
+        <?php if (isset($model->name)): ?>
+            <div class="text-center">
+                <div class="user-block"><?= $model->name;?></div>
+            </div>
+            <hr>
+        <?php endif;?>
         <div class="image-view_image">
             <?= Html::img($model->getImageUrl(), [
                 'class' => 'img-thumbnail',

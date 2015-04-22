@@ -26,6 +26,7 @@ $this->title = Yii::$app->name;
                         </div>
                         <div id="effects-list" class="panel-collapse collapse" role="tabpanel">
                             <div class="panel-body">
+                                <?= $form->field($model, 'name', ['template' => '<div class="col-md-3">{label}</div><div class="col-md-9">{input}{hint}{error}</div>'])->textInput(['placeholder' => 'Введите название']); ?>
                                 <?= $form->field($model, 'status', ['template' => '<div class="col-md-12">{label}{input}{hint}{error}</div>'])->checkbox(); ?>
                                 <?= $form->field($model, 'watermark', ['template' => '<div class="col-md-12">{label}{input}{hint}{error}</div>'])->checkbox(); ?>
                                 <?= $form->field($model, 'size', ['template' => '<div class="col-md-12">{label}{input}{hint}{error}</div>'])->checkbox(); ?>
@@ -33,6 +34,8 @@ $this->title = Yii::$app->name;
                                 <?= $form->field($model, 'size_width', ['template' => '<div class="col-md-3">{label}</div><div class="col-md-9">{input}{hint}{error}</div>'])->textInput(['placeholder' => 'Ширина в px']); ?>
                                 <?= $form->field($model, 'rotate', ['template' => '<div class="col-md-12">{label}{input}{hint}{error}</div>'])->checkbox(); ?>
                                 <?= $form->field($model, 'rotate_value', ['template' => '<div class="col-md-3">{label}</div><div class="col-md-9">{input}{hint}{error}</div>'])->dropDownList($rotate); ?>
+                                <?= $form->field($model, 'flip', ['template' => '<div class="col-md-12">{label}{input}{hint}{error}</div>'])->checkbox(); ?>
+                                <?= $form->field($model, 'flip_value', ['template' => '<div class="col-md-3">{label}</div><div class="col-md-9">{input}{hint}{error}</div>'])->dropDownList($flip); ?>
                                 <?= $form->field($model, 'negattive', ['template' => '<div class="col-md-12">{label}{input}{hint}{error}</div>'])->checkbox(); ?>
                                 <?= $form->field($model, 'grayscale', ['template' => '<div class="col-md-12">{label}{input}{hint}{error}</div>'])->checkbox(); ?>
                             </div>
@@ -127,6 +130,7 @@ $this->registerJs("
 $('.field-images-size_height').hide();
 $('.field-images-size_width').hide();
 $('.field-images-rotate_value').hide();
+$('.field-images-flip_value').hide();
 
 $('#images-image').fileinput({
     browseClass: 'btn btn-lg btn-success',
@@ -156,6 +160,16 @@ $(document).on('change', '#images-rotate', function(){
     }
     else {
         $('.field-images-rotate_value').hide();
+    }
+});
+
+$(document).on('change', '#images-flip', function(){
+    var checked = $(this).is(':checked');
+    if (checked) {
+        $('.field-images-flip_value').show();
+    }
+    else {
+        $('.field-images-flip_value').hide();
     }
 });
 ", \yii\web\View::POS_READY);

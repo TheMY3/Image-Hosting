@@ -28,6 +28,8 @@ class Images extends ActiveRecord
     public $negattive;
     public $grayscale;
     public $watermark;
+    public $flip;
+    public $flip_value;
 
     /**
      * @var mixed image the attribute for rendering the file input
@@ -39,10 +41,11 @@ class Images extends ActiveRecord
     public function rules()
     {
         return [
-            [['image', 'filename', 'file', 'created', 'id_user', 'status', 'size', 'size_height', 'size_width', 'rotate', 'rotate_value', 'negattive', 'grayscale', 'watermark'], 'safe'],
+            [['image', 'filename', 'file', 'created', 'id_user', 'status', 'size', 'size_height', 'size_width', 'rotate', 'rotate_value', 'negattive', 'grayscale', 'watermark', 'flip', 'flip_value'], 'safe', 'on' => 'default'],
+            [['name'], 'safe', 'on' => 'update'],
             ['status', 'default', 'value' => 1],
             [['likes', 'views'], 'integer'],
-            [['name', 'description'], 'string'],
+            [['name', 'description'], 'string', 'max' => 30],
             [['image'], 'file', 'extensions' => 'jpg, gif, png'],
             [['size_height', 'size_width'], 'required', 'when' => function ($model) {
                 return $model->size == true;
@@ -58,6 +61,7 @@ class Images extends ActiveRecord
     public function attributeLabels()
     {
         return [
+            'name' => 'Название',
             'watermark' => 'Показывать копирайт',
             'status' => 'Отображать в Галерее',
             'size' => 'Изменить размер',
@@ -65,6 +69,8 @@ class Images extends ActiveRecord
             'size_width' => 'Ширина',
             'rotate' => 'Повернуть изображение',
             'rotate_value' => 'Повернуть на',
+            'flip' => 'Отразить изображение',
+            'flip_value' => 'Отразить',
             'negattive' => 'Сделать изображение негативным (обратить цвета)',
             'grayscale' => 'Сделать изображение черно-белым (в оттенках серого)',
         ];

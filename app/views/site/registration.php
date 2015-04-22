@@ -6,7 +6,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\models\RegistrationForm */
 
-$this->title = 'Registration';
+$this->title = 'Регистрация';
 ?>
 <div class="modal-dialog">
     <div class="modal-content">
@@ -43,11 +43,11 @@ $this->title = 'Registration';
         <div class="modal-footer">
             <div class="form-group">
                 <div class="col-xs-4">
-                    <?= Html::a('Login', ['login'], ['class' => 'pull-left modalWindow btn btn-primary']);?>
+                    <?= Html::a('Авторизация', ['login'], ['class' => 'pull-left modalWindow btn btn-primary']);?>
                 </div>
                 <div class="col-xs-8">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <?= Html::submitButton('Registration', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton('Регистрация', ['class' => 'btn btn-primary']) ?>
                 </div>
             </div>
         </div>

@@ -83,6 +83,12 @@ class SiteController extends Controller
             180 => '180 град.'
         ];
 
+        $flip = [
+            'не отражать',
+            'отразить по горизонтали',
+            'отразить по вертикали'
+        ];
+
         if ($model->load(Yii::$app->request->post())) {
             // process uploaded image file instance
             $image = $model->uploadImage();
@@ -100,11 +106,6 @@ class SiteController extends Controller
                         }
                     }
                     else {
-                        if ($model->watermark && $uploadImage->getSize()->getWidth() >= 155 && $uploadImage->getSize()->getHeight() >= 27) {
-                            $watermark = $imagine->open(Yii::getAlias('@app/media/img/watermark.png'));
-                            $bottomRight = [$uploadImage->getSize()->getWidth() - $watermark->getSize()->getWidth(), $uploadImage->getSize()->getHeight() - $watermark->getSize()->getHeight()];
-                            $uploadImage->paste($watermark, new Point($bottomRight[0], $bottomRight[1]));
-                        }
                         if ($model->size) {
                             $uploadImage->resize(new Box($model->size_height, $model->size_width));
                         }
@@ -117,16 +118,26 @@ class SiteController extends Controller
                         if ($model->grayscale) {
                             $uploadImage->effects()->grayscale();
                         }
+                        if ($model->flip && $model->flip_value > 0) {
+                            if ($model->flip_value == 1)
+                                $uploadImage->flipHorizontally();
+                            elseif ($model->flip_value == 2)
+                                $uploadImage->flipVertically();
+                        }
+                        if ($model->watermark && $uploadImage->getSize()->getWidth() >= 155 && $uploadImage->getSize()->getHeight() >= 27) {
+                            $watermark = $imagine->open(Yii::getAlias('@app/media/img/watermark.png'));
+                            $bottomRight = [$uploadImage->getSize()->getWidth() - $watermark->getSize()->getWidth(), $uploadImage->getSize()->getHeight() - $watermark->getSize()->getHeight()];
+                            $uploadImage->paste($watermark, new Point($bottomRight[0], $bottomRight[1]));
+                        }
                     }
                     $uploadImage->save($path);
-//                    Image::text($path, 'Русский текст', '@app/media/fonts/arial.ttf')->save($path);
                 }
                 return $this->redirect(['share', 'link' => PseudoCrypt::hash($model->id, 6)]);
             } else {
                 // error in saving model
             }
         }
-        return $this->render('index', compact('model', 'data', 'rotate'));
+        return $this->render('index', compact('model', 'data', 'rotate', 'flip'));
     }
 
     public function actionInformation()
@@ -201,6 +212,12 @@ class SiteController extends Controller
     {
         $id = PseudoCrypt::unhash($link);
         $model = $this->findModel($id);
+        $model->setScenario('update');
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return ['output'=>$model->name, 'message'=>''];
+        }
 
         return $this->render('edit', [
             'model' => $model,
@@ -352,13 +369,13 @@ class SiteController extends Controller
                 } else {
                     $password = Yii::$app->security->generateRandomString(6);
 
-//                    if ($client->getId() =='twitter') {
-//                        $username = $attributes['name'];
-//                    }
-//                    else {
-//                        $username = isset($attributes['login']) ? $attributes['login'] : null;
-//                    }
-                    $username = isset($attributes['login']) ? $attributes['login'] : null;
+                    if ($client->getId() =='twitter') {
+                        $username = $attributes['name'];
+                    }
+                    else {
+                        $username = isset($attributes['login']) ? $attributes['login'] : null;
+                    }
+//                    $username = isset($attributes['login']) ? $attributes['login'] : null;
                     $user = new Users([
                         'username' => $username,
                         'email' => isset($attributes['email']) ? $attributes['email'] : null,
