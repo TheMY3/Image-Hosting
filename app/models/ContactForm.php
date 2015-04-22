@@ -27,7 +27,7 @@ class ContactForm extends Model
             // email has to be a valid email address
             ['email', 'email'],
             // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
+//            ['verifyCode', 'captcha'],
         ];
     }
 
@@ -37,6 +37,9 @@ class ContactForm extends Model
     public function attributeLabels()
     {
         return [
+            'name' => 'Имя',
+            'subject' => 'Тема обращения',
+            'body' => 'Текст обращения',
             'verifyCode' => 'Verification Code',
         ];
     }

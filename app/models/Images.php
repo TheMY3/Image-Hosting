@@ -20,6 +20,15 @@ class Images extends ActiveRecord
         return 'images';
     }
 
+    public $size;
+    public $size_height;
+    public $size_width;
+    public $rotate;
+    public $rotate_value;
+    public $negattive;
+    public $grayscale;
+    public $watermark;
+
     /**
      * @var mixed image the attribute for rendering the file input
      * widget for upload on the form
@@ -30,9 +39,48 @@ class Images extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'image', 'filename', 'file'], 'safe'],
+            [['image', 'filename', 'file', 'created', 'id_user', 'status', 'size', 'size_height', 'size_width', 'rotate', 'rotate_value', 'negattive', 'grayscale', 'watermark'], 'safe'],
+            ['status', 'default', 'value' => 1],
+            [['likes', 'views'], 'integer'],
+            [['name', 'description'], 'string'],
             [['image'], 'file', 'extensions' => 'jpg, gif, png'],
+            [['size_height', 'size_width'], 'required', 'when' => function ($model) {
+                return $model->size == true;
+            }, 'whenClient' => "function (attribute, value) {
+                return $('#images-size').is(':checked');
+            }"],
         ];
+    }
+
+    /**
+     * @return array customized attribute labels
+     */
+    public function attributeLabels()
+    {
+        return [
+            'watermark' => 'Показывать копирайт',
+            'status' => 'Отображать в Галерее',
+            'size' => 'Изменить размер',
+            'size_height' => 'Высота',
+            'size_width' => 'Ширина',
+            'rotate' => 'Повернуть изображение',
+            'rotate_value' => 'Повернуть на',
+            'negattive' => 'Сделать изображение негативным (обратить цвета)',
+            'grayscale' => 'Сделать изображение черно-белым (в оттенках серого)',
+        ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if (!\Yii::$app->user->isGuest) {
+                $this->id_user = \Yii::$app->user->id;
+            }
+            $this->created = time();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -107,5 +155,13 @@ class Images extends ActiveRecord
         $this->filename = null;
 
         return true;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(Users::className(), ['id_user' => 'id_user']);
     }
 }
